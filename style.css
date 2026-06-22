@@ -1,0 +1,736 @@
+/* DEFINICIÓN DE VARIABLES: Facilita cambios de tema globales en un solo lugar */
+/* Este pedazo de código define las variables globales (colores, medidas, transiciones) que se usarán en todo el sitio para facilitar cambios rápidos. */
+:root { /* Inicio de variables raíz */
+    --primary-bg: #050505; /* Fondo oscuro principal */
+    --accent-cyan: #00d2ff; /* Color cian para acentos neón */
+    --accent-purple: #9d50bb; /* Color púrpura para degradados */
+    --glass-bg: rgba(255, 255, 255, 0.05); /* Fondo para efecto cristal */
+    --glass-border: rgba(255, 255, 255, 0.15); /* Borde para efecto cristal */
+    --text-main: #e0e0e0; /* Color de texto principal */
+    --text-dim: #a0a0a0; /* Color de texto secundario */
+    --nav-height: 80px; /* Altura de la barra de navegación */
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animación suave */
+} /* Fin de variables raíz */
+
+/* MODO CLARO: Sobrescritura de colores para el tema día */
+/* Este pedazo de código redefine los colores de las variables cuando el cuerpo del documento tiene la clase "light-mode", activando el tema claro. */
+body.light-mode { /* Selector para cuando el modo claro está activo */
+    --primary-bg: #f0f2f5; /* Fondo gris claro */
+    --glass-bg: rgba(255, 255, 255, 0.7); /* Fondo cristal más opaco */
+    --glass-border: rgba(0, 0, 0, 0.1); /* Bordes oscuros sutiles */
+    --text-main: #1a1a1a; /* Texto negro principal */
+    --text-dim: #4a4a4a; /* Texto gris secundario */
+} /* Fin de modo claro */
+
+/* COMPORTAMIENTO GLOBAL */
+/* Este pedazo de código configura el comportamiento general de la página, asegurando un desplazamiento suave y espacio para que el menú no tape el contenido. */
+html { /* Estilos para el elemento raíz HTML */
+    scroll-behavior: smooth; /* Desplazamiento suave en navegación interna */
+    scroll-padding-top: var(--nav-height); /* Evita que el menú tape encabezados */
+} /* Fin de HTML */
+
+/* RESET DE ESTILOS: Elimina márgenes y rellenos por defecto */
+/* Este pedazo de código elimina los márgenes y rellenos por defecto de todos los elementos para tener un control total del diseño. */
+* { margin: 0; padding: 0; box-sizing: border-box; } /* Reset básico de márgenes y paddings */
+
+/* ESTILOS DE BODY: Tipografía y comportamiento de fondo */
+/* Este pedazo de código establece los estilos base del cuerpo, como la tipografía, colores de fondo y evita el desbordamiento horizontal. */
+body { /* Estilos generales del cuerpo */
+    font-family: 'Montserrat', sans-serif; /* Fuente principal */
+    background-color: var(--primary-bg); /* Color de fondo dinámico */
+    color: var(--text-main); /* Color de texto dinámico */
+    overflow-x: hidden; /* Evita scroll horizontal */
+    transition: background 0.5s ease; /* Transición suave entre temas */
+} /* Fin de body */
+
+/* FONDO DECORATIVO: Manchas de color animadas */
+/* Este pedazo de código crea un fondo decorativo con manchas de colores neón difuminadas que se mantienen fijas detrás del contenido. */
+.blob-bg { /* Fondo con gradientes radiales */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; /* Pantalla completa fija */
+    background: radial-gradient(circle at 20% 30%, var(--accent-cyan), var(--accent-purple), #ff0055); /* Colores neón */
+    filter: blur(120px); opacity: 0.4; z-index: -1; /* Desenfoque profundo detrás de todo */
+    animation: blob-pulse 15s infinite alternate; /* Animación de latido */
+} /* Fin de blob-bg */
+
+/* Este pedazo de código define la animación de "latido" que hace que el fondo decorativo crezca y cambie de opacidad suavemente. */
+@keyframes blob-pulse { /* Definición de pasos de animación */
+    from { transform: scale(1); opacity: 0.3; } /* Inicio: tamaño normal */
+    to { transform: scale(1.2); opacity: 0.5; } /* Fin: crece ligeramente */
+} /* Fin de animación */
+
+/* Este pedazo de código define un contenedor que centra el contenido y limita su ancho máximo para que no se vea demasiado estirado. */
+.container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 20px 0; } /* Contenedor centralizado */
+
+/* ESTILO CRISTAL (Glassmorphism): Transparencias modernas */
+/* Este pedazo de código aplica el efecto "Glassmorphism" (estilo cristal), con transparencias, desenfoque de fondo y bordes sutiles. */
+.glass { /* Clase para cajas con efecto cristal */
+    background: var(--glass-bg); /* Fondo traslúcido */
+    backdrop-filter: blur(12px); /* Desenfoca el fondo detrás de la caja */
+    border: 1px solid var(--glass-border); /* Borde semitransparente */
+    border-radius: 20px; /* Esquinas redondeadas */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Sombra suave de profundidad */
+} /* Fin de glass */
+
+/* BARRA DE NAVEGACIÓN: Cabecera fija y enlaces */
+/* Este pedazo de código configura la barra de navegación para que esté fija en la parte superior y distribuya el logo y los enlaces. */
+.navbar { /* Estilos de la cabecera fija */
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); /* Posición fija arriba */
+    display: flex; justify-content: space-between; align-items: center; /* Alineación horizontal */
+    padding: 0 5%; z-index: 1000; border-radius: 0; border-top: none; /* Estética de barra */
+} /* Fin de navbar */
+
+/* Este pedazo de código da estilo al texto del logo, usando una fuente futurista y el color cian de acento. */
+.logo { font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); font-weight: 800; font-size: 1.4rem; } /* Estilo de texto logo */
+
+/* ENLACES DE NAVEGACIÓN: Estilo y espaciado */
+/* Este pedazo de código alinea los enlaces del menú en una fila y les da espacio entre sí. */
+.nav-links { display: flex; list-style: none; gap: 30px; } /* Lista de enlaces en fila */
+
+/* Este pedazo de código define el aspecto de los enlaces de navegación y añade un efecto de color al pasar el ratón. */
+.nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; } /* Estilo enlaces */
+.nav-links a:hover { color: var(--accent-cyan); } /* Cambio de color al pasar mouse */
+
+/* SECCIÓN HERO: Bienvenida vertical mejorada */
+/* Este pedazo de código organiza la sección de bienvenida (Hero) para que ocupe toda la pantalla y centre todos sus elementos. */
+.hero-section { /* Contenedor principal del inicio */
+    min-height: 100vh; /* Altura completa de pantalla */
+    display: flex; /* Uso de flexbox */
+    flex-direction: column; /* Organiza logo arriba y texto abajo verticalmente */
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    text-align: center; /* Centra el texto */
+    padding: 100px 0; /* Espaciado interno */
+    gap: 20px; /* Espacio entre el logo y el título */
+} /* Fin de hero-section */
+
+/* Este pedazo de código agrupa el texto de la sección hero para que se apile verticalmente y se mantenga centrado. */
+.hero-content { /* Contenedor del texto informativo */
+    max-width: 800px; /* Ancho máximo para legibilidad */
+    display: flex; /* Flexbox interno */
+    flex-direction: column; /* Apila título, eslogan y descripción */
+    align-items: center; /* Centra hijos horizontalmente */
+} /* Fin de hero-content */
+
+/* Este pedazo de código establece las dimensiones del logo principal y asegura que sea responsivo en pantallas pequeñas. */
+.hero-logo-large {
+    width: 400px; /* Ancho fijo para el logo */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    max-width: 95vw; /* Evita que el logo se desborde en pantallas de móviles */
+    flex-shrink: 0; 
+    object-fit: contain; /* Asegura que la imagen se ajuste al contenedor */
+    border-radius: 0; /* Mantiene la forma rectangular */
+    border: none; /* Sin bordes */
+    box-shadow: none; /* Sin sombras ni resplandores */
+    padding: 0; /* Sin espacio interno */
+    margin-bottom: 10px; /* Espaciado con el título inferior */
+    transition: transform 0.3s ease; /* Suavidad para el efecto hover */
+}
+
+/* EFECTO HOVER: Interactividad para resaltar el logo al pasar el cursor */
+/* Este pedazo de código añade un efecto de interactividad al logo, haciéndolo crecer y brillar cuando el usuario pasa el mouse sobre él. */
+.hero-logo-large:hover { /* Se activa cuando el usuario posiciona el puntero sobre el logo */
+    transform: scale(1.05); /* Aumenta el tamaño un 5% para dar feedback visual */
+    filter: drop-shadow(0 0 30px var(--accent-cyan)); /* Intensifica el brillo neón cian al interactuar */
+    /* Se eliminó el efecto de brillo en hover para que no haya ningún "cuadrado" */
+} /* Fin del efecto hover del logo */
+
+/* Este pedazo de código da estilo al título principal (H1) usando una fuente futurista y un degradado de color. */
+h1 { /* Título principal EduMetrics */
+    font-family: 'Orbitron', sans-serif; /* Fuente futurista */
+    font-size: clamp(3rem, 10vw, 5rem); /* Tamaño dinámico según pantalla */
+    margin-bottom: 1rem; /* Espacio inferior */
+    background: linear-gradient(to right, #fff, var(--accent-cyan)); /* Texto degradado */
+    -webkit-background-clip: text; /* Clip de fondo para texto (Webkit) */
+    background-clip: text; /* Clip de fondo estándar */
+    -webkit-text-fill-color: transparent; /* Hace el relleno transparente para ver degradado */
+    color: transparent; /* Fallback estándar */
+} /* Fin de h1 */
+
+/* ESTILO GLITCH: Sombras de distorsión digital */
+/* Este pedazo de código crea un efecto de sombras neón desplazadas para dar una apariencia de distorsión digital o "glitch". */
+.glitch { /* Efecto de sombras neón para estilo distorsionado */
+    position: relative; /* Posicionamiento relativo */
+    text-shadow: 3px 3px 0px var(--accent-purple), -3px -3px 0px var(--accent-cyan); /* Sombras desplazadas */
+    filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.4)); /* Brillo base */
+} /* Fin de glitch */
+
+/* TAGLINE Y DESCRIPCIÓN: Estilo del eslogan y párrafo descriptivo */
+/* Este pedazo de código da estilo al eslogan y diseña el párrafo descriptivo para que sea legible y con buen interlineado. */
+.tagline { color: var(--accent-purple); font-weight: 600; margin-bottom: 20px; font-size: 1.2rem; } /* Estilo eslogan */
+.description { max-width: 750px; margin: 0 auto 50px; color: var(--text-dim); line-height: 1.8; font-size: 1.1rem; } /* Párrafo principal */
+
+/* BOTONES DE ACCIÓN: Contenedor y diseño del botón principal */
+/* Este pedazo de código organiza los botones de acción y crea el botón principal con un degradado de colores. */
+.hero-actions { margin-top: 20px; display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; } /* Botones centrados */
+.btn-primary { /* Estilo de botón principal con degradado */
+    padding: 15px 35px; border-radius: 50px; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    color: white; text-decoration: none; font-weight: 600; border: none; cursor: pointer;
+} /* Fin botón primario */
+
+/* CONMUTADOR DE TEMA: Botón circular con efecto cristal */
+/* Este pedazo de código diseña el botón de cambio de tema como un círculo flotante con efectos de cristal. */
+.btn-icon { /* Estilos para el botón de luna/sol */
+    background: var(--glass-bg); /* Fondo traslúcido */
+    border: 1px solid var(--glass-border); /* Borde sutil */
+    color: var(--text-main); /* Color icono dinámico */
+    padding: 10px; border-radius: 50%; width: 45px; height: 45px; /* Forma circular */
+    cursor: pointer; transition: var(--transition); /* Animación al interactuar */
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; /* Centrado icono */
+    backdrop-filter: blur(5px); /* Desenfoque propio */
+} /* Fin btn-icon */
+
+/* Este pedazo de código añade un efecto de rotación y brillo al botón de tema cuando el usuario pasa el ratón por encima. */
+.btn-icon:hover { transform: scale(1.1) rotate(15deg); color: var(--accent-cyan); border-color: var(--accent-cyan); box-shadow: 0 0 15px var(--accent-cyan); } /* Efecto hover rotado */
+
+/* Este pedazo de código define la altura mínima y el centrado de todas las secciones del sitio para mantener una estructura uniforme. */
+.section { /* Estilos para bloques de contenido */
+    min-height: 100vh; /* Altura completa */
+    display: flex; flex-direction: column; justify-content: center; /* Centrado vertical */
+    padding: 100px 0; /* Espaciado respirable */
+} /* Fin section */
+
+/* Botón Ovalado de inicio de sesion*/
+.nav-actions { display: flex; align-items: center; gap: 15px; }
+
+.btn-oval {
+    padding: 8px 25px;
+    border-radius: 50px; /* Forma ovalada */
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    color: white;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-oval:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent-cyan);
+}
+
+/* Estilos de la Ventana Modal */
+/* Este pedazo de código crea el fondo oscuro y asegura que el modal nunca toque los bordes de tu pantalla. */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none; /* Oculto por defecto */
+    justify-content: center; align-items: center;
+    z-index: 2000;
+    padding: 20px; /* NUEVO: Margen de seguridad para que no choque arriba o abajo */
+    box-sizing: border-box; /* NUEVO: Mantiene el tamaño dentro del 100% de la pantalla */
+}
+
+/* Este pedazo de código define el contenedor de la ventana. Le añadimos un límite de altura y scroll automático. */
+.modal-content {
+    width: 90%; max-width: 450px;
+    padding: 30px; position: relative;
+    max-height: 90vh; /* NUEVO: El modal nunca medirá más del 90% del alto de tu pantalla actual */
+    overflow-y: auto; /* NUEVO: Activa una barra de desplazamiento interna si hay muchas materias o botones */
+    
+    /* Aseguramos el estilo cristal base aquí mismo */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+
+/* Este pedazo de código personaliza la barra de desplazamiento (scroll) dentro de la ventana para que sea estilo neón. */
+.modal-content::-webkit-scrollbar { 
+    width: 6px; /* Barra más delgada y elegante */
+} 
+.modal-content::-webkit-scrollbar-track { 
+    background: transparent; /* Fondo transparente */
+} 
+.modal-content::-webkit-scrollbar-thumb { 
+    background: rgba(0, 210, 255, 0.3); /* Color cian suave */
+    border-radius: 10px; /* Bordes redondeados */
+} 
+.modal-content::-webkit-scrollbar-thumb:hover { 
+    background: rgba(0, 210, 255, 0.8); /* Brilla más al pasar el mouse por encima */
+} 
+
+/* El botón de cerrar se mantiene igual, flotando en la esquina superior derecha. */
+.close-modal {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 1.5rem; cursor: pointer; color: var(--accent-cyan);
+    z-index: 10; /* Asegura que el botón cerrar siempre esté clicable por encima de todo */
+}
+
+.auth-tabs { display: flex; gap: 20px; margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); }
+
+.tab-btn {
+    background: none; border: none; color: var(--text-dim);
+    padding: 10px; cursor: pointer; font-weight: 600;
+}
+
+.tab-btn.active { color: var(--accent-cyan); border-bottom: 2px solid var(--accent-cyan); }
+
+.auth-form { display: flex; flex-direction: column; gap: 15px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+select {
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    padding: 12px; border-radius: 10px; color: var(--text-main);
+}
+
+
+/* Estilo de los grupos de entrada, ventana de inicio de sesion*/
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+}
+
+.auth-form input, 
+.auth-form select {
+    width: 100%;
+    padding: 12px 15px 12px 45px; /* Espacio para el icono */
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+}
+
+/* Para el modo claro */
+/* Corregido para que afecte tanto a los formularios como a cualquier input de grupo */
+body.light-mode .auth-form input,
+body.light-mode .input-group input {
+    color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Alternar formularios */
+.auth-form {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Este pedazo de código da estilo a los títulos de las secciones (H2) usando la fuente futurista y color cian. */
+h2 { font-family: 'Orbitron', sans-serif; color: var(--accent-cyan); margin-bottom: 2rem; font-size: 1.8rem; } /* Títulos de sección */
+
+/* Este pedazo de código añade un espaciado interno generoso a las tarjetas para que el texto respire. */
+.card { padding: 40px; line-height: 1.8; } /* Estilos de tarjetas de información */
+
+/* Este pedazo de código crea una cuadrícula automática que organiza las tarjetas de características en columnas que se ajustan solas. */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; } /* Grilla responsiva */
+
+/* Este pedazo de código añade un efecto de elevación a las tarjetas de características cuando el usuario interactúa con ellas. */
+.feat-card { padding: 30px; text-align: center; transition: 0.4s; } /* Tarjetas individuales */
+.feat-card:hover { transform: translateY(-10px); border-color: var(--accent-cyan); } /* Elevación en hover */
+
+/* Este pedazo de código da estilo a los iconos dentro de las tarjetas de características para que resalten en color cian. */
+.feat-card i { font-size: 2.5rem; color: var(--accent-cyan); margin-bottom: 1rem; } /* Iconos destacados */
+
+/* Este pedazo de código da formato a los elementos de la lista de beneficios, alineando los iconos con el texto. */
+.benefit-item { padding: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; font-weight: 600; } /* Items de lista */
+
+/* Este pedazo de código divide la sección de contacto en dos columnas: una para el formulario y otra para el equipo. */
+.contact-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; } /* Layout dividido */
+
+/* Este pedazo de código organiza los perfiles del equipo en una lista vertical. */
+.team-container { display: flex; flex-direction: column; gap: 20px; } /* Lista de perfiles vertical */
+
+/* Este pedazo de código organiza los campos del formulario de contacto para que aparezcan uno debajo del otro. */
+.contact-form { display: flex; flex-direction: column; gap: 15px; } /* Formulario en columna */
+
+/* Este pedazo de código da estilo a los campos de texto del formulario, dándoles un aspecto oscuro y bordes de cristal. */
+.contact-form input, .contact-form textarea { /* Estilos de campos */
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+    padding: 15px; border-radius: 10px; color: white;
+} /* Fin inputs */
+
+/* Este pedazo de código centra el contenido de las tarjetas de los investigadores. */
+.investigator-card { text-align: center; padding: 30px; } /* Tarjeta de perfil */
+
+/* Este pedazo de código diseña las fotos de perfil de los investigadores como círculos perfectos con un borde cian. */
+.profile-pic-large { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--accent-cyan); margin-bottom: 1rem; object-fit: cover; } /* Foto circular */
+
+/* Este pedazo de código resalta el cargo de cada investigador con el color púrpura. */
+.role { color: var(--accent-purple); font-weight: 600; margin: 10px 0; } /* Texto de cargo */
+
+/* Este pedazo de código establece el estado inicial (invisible y desplazado hacia abajo) para los elementos que aparecen al hacer scroll. */
+.scroll-reveal { opacity: 0; transform: translateY(40px); transition: 1s ease-out; } /* Estado oculto inicial */
+
+/* Este pedazo de código activa la visibilidad de los elementos "scroll-reveal" cuando entran en la pantalla (usando JavaScript). */
+.scroll-reveal.active { opacity: 1; transform: translateY(0); } /* Estado visible animado */
+
+/* Este pedazo de código oculta el botón de menú hamburguesa en las pantallas grandes. */
+.menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; } /* Botón móvil oculto en PC */
+
+/* Este pedazo de código ajusta el diseño para pantallas pequeñas, ocultando el menú principal y reorganizando las columnas en una sola fila. */
+@media (max-width: 768px) { /* Para pantallas menores a 768px */
+    .hero-section { gap: 30px; } /* Espacio hero móvil */
+    .description { margin: 0 auto 50px; } /* Descripción centrada móvil */
+    .nav-links { display: none; } /* Oculta navegación de escritorio */
+    .menu-toggle { display: block; } /* Muestra botón hamburguesa */
+    .contact-grid { grid-template-columns: 1fr; } /* Una sola columna para contacto */
+    .navbar { padding: 0 20px; } /* Padding reducido */
+} /* Fin media query */
+
+/* --- CÍRCULO DE PERFIL EN EL NAVBAR --- */
+.profile-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--accent-cyan);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+.profile-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- BARRA LATERAL DESPLEGABLE (SIDEBAR) --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -30%; /* Oculta a la izquierda por defecto */
+    width: 25%; /* Cubre exactamente 1/4 de la pantalla */
+    height: 100vh;
+    z-index: 3000; /* Por encima de todo */
+    transition: left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Clase activa que se añadirá con JS para mostrar la barra */
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 15px;
+}
+
+.sidebar-header h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent-cyan);
+}
+
+.sidebar-form h4 {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.sidebar-divider {
+    border: 0;
+    height: 1px;
+    background: var(--glass-border);
+    margin: 25px 0;
+}
+
+.sidebar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Botones de alerta/peligro temáticos */
+.btn-danger {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+.btn-danger:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 75, 43, 0.3); }
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid var(--glass-border);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* --- DISEÑO COMPLEMENTARIO DEL PANEL PRINCIPAL --- */
+.dashboard-container {
+    margin-top: 120px;
+    animation: fadeIn 0.6s ease forwards;
+}
+.db-header { margin-bottom: 40px; text-align: center; }
+.text-cyan { color: var(--accent-cyan); }
+.text-purple { color: var(--accent-purple); }
+.btn-small {
+    background: transparent;
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s;
+}
+.btn-small:hover { background: var(--accent-cyan); color: black; }
+
+/* Responsivo para móviles: la barra ocupará el 80% en pantallas chicas */
+@media (max-width: 768px) {
+    .sidebar { width: 80%; left: -85%; }
+}
+
+
+/* ESTILOS PARA LOS CAMPOS DEL PERFIL */
+
+/* 1. Contenedor del grupo de entrada (La celda completa) */
+.sidebar-form .input-group {
+    position: relative; /* Permite posicionar el ícono de forma absoluta adentro */
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4); /* Fondo oscuro translúcido idéntico al modal */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil que apenas se nota */
+    border-radius: 12px; /* Esquinas redondeadas suaves */
+    margin-bottom: 20px; /* Separación limpia entre celdas */
+    transition: all 0.3s ease; /* Transición suave para los efectos */
+    width: 100%;
+}
+
+/* 2. Efecto de iluminación cuando el usuario hace clic para escribir */
+.sidebar-form .input-group:focus-within {
+    border-color: var(--accent-cyan); /* El borde cambia al cian de tu temática */
+    box-shadow: 0 0 12px rgba(0, 210, 255, 0.3); /* Destello de neón azul */
+    background: rgba(0, 0, 0, 0.6); /* Se oscurece un poco más para contrastar */
+}
+
+/* 3. Ajuste perfecto del ícono dentro de la celda */
+.sidebar-form .input-group i {
+    position: absolute;
+    left: 15px; /* Lo separa del borde izquierdo de la celda */
+    color: var(--accent-cyan); /* Conserva tu color cian distintivo */
+    font-size: 1rem;
+    pointer-events: none; /* Hace que el ícono sea "invisible" a los clics del mouse */
+    z-index: 5;
+}
+
+/* 4. Estilo definitivo de la celda de texto (Input) */
+.sidebar-form .input-group input {
+    background: transparent !important; /* Eliminamos el fondo blanco horrible por defecto */
+    border: none !important; /* Quitamos el borde clásico de Windows */
+    color: #ffffff !important; /* Forzamos a que el texto introducido sea blanco */
+    width: 100%;
+    padding: 14px 15px 14px 45px; /* ¡CRUCIAL! El '45px' a la izquierda evita que el texto choque con el ícono */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    outline: none; /* Elimina la línea naranja/azul que pone Chrome por defecto */
+}
+
+/* 5. Estilo del texto de sugerencia (Placeholder) */
+.sidebar-form .input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.4); /* Texto grisáceo sutil cuando está vacío */
+}
+
+/* 6. Ajuste opcional para mejorar el título interno del formulario */
+.sidebar-form h4 {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================================================
+   --- ESTILOS CONSOLIDADOS PARA LA LISTA DE MATERIAS (CRISTAL OSCURO) ---
+   ========================================================================== */
+#subjects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin-top: 15px;
+    list-style: none; /* Elimina viñetas residuales */
+}
+
+/* Tarjeta contenedora de la materia */
+.subject-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Efecto Hover para el destello neón */
+.subject-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: #00d2ff; /* Tu celeste/cian de la página */
+}
+
+/* Bloque de texto informativo */
+.subject-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea los textos a la izquierda */
+    text-align: left;
+}
+
+/* Título de la Materia */
+.subject-info h5 {
+    color: #ffffff;
+    font-size: 1.05rem;
+    margin: 0 0 6px 0;
+    font-family: 'Montserrat', sans-serif; /* Mantiene la estética del sitio */
+    font-weight: 600;
+}
+
+/* Subtexto (Profesor y Dificultad) */
+.subject-info span {
+    color: #b3b3b3;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Íconos pequeños dentro de la tarjeta */
+.subject-info i {
+    color: #a855f7; /* Tu morado característico */
+}
+
+/* Botón de eliminar (Icono de la X redonda) */
+.btn-delete-item {
+    background: transparent;
+    border: none;
+    color: #ff416c;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.btn-delete-item:hover {
+    transform: scale(1.2);
+    color: #ff4b2b;
+}
+
+/* Mensaje de aviso cuando no hay resultados en la lista/búsqueda */
+.no-subjects-msg {
+    text-align: center;
+    color: #888;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    list-style: none;
+    font-size: 0.95rem;
+}
+
+
+/* --- ARREGLO ESTÉTICO DEFINITIVO PARA EL BUSCADOR --- */
+.search-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100% !important;
+    margin: 20px 0 !important;
+}
+
+/* Fuerza al input de búsqueda a tener el look cyber/cristal */
+.search-group input {
+    width: 100%;
+    padding: 14px 16px 14px 45px !important; /* Deja espacio a la izquierda para la lupa */
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Efecto foco: destello celeste al hacer clic para buscar */
+.search-group input:focus {
+    border-color: #00d2ff !important;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Posiciona la lupa correctamente dentro del campo de texto */
+.search-group i {
+    position: absolute;
+    left: 18px;
+    color: #00d2ff; /* Color celeste para combinar con el enfoque */
+    font-size: 0.95rem;
+    pointer-events: none; /* Evita que interfiera al hacer clic */
+}
+
+
+/* ==========================================================================
+   --- BOTÓN DE IMPRESIÓN / PDF ---
+   ========================================================================== */
+.btn-print {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    /* Gradiente diferente para destacar la acción de exportar */
+    background: linear-gradient(135deg, #00d2ff 0%, #3b82f6 100%) !important;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Espacio entre el icono y el texto */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-print:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+}
